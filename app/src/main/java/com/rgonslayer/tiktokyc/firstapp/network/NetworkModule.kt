@@ -1,5 +1,6 @@
 package com.rgonslayer.tiktokyc.firstapp.network
 
+import com.squareup.moshi.Json
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -16,5 +17,11 @@ object NetworkModule {
         .build()
 
     // Create our API
-    val WeatherAPI: Weather = retrofit.create(Weather::class.java)
+    val weatherAPI: WeatherAPI = retrofit.create(WeatherAPI::class.java)
+    val TempAPI: AirTemperature = retrofit.create(AirTemperature::class.java)
+    val HumidAPI: RelativeHumidity = retrofit.create(RelativeHumidity::class.java)
+    val DirectionAPI: WindDirection = retrofit.create(WindDirection::class.java)
+    val SpeedAPI: WindSpeed = retrofit.create(WindSpeed::class.java)
+    val RainfallAPI: Rainfall = retrofit.create(Rainfall::class.java)
+    val UVIndexAPI: UVIndex = retrofit.create(UVIndex::class.java)
 }
