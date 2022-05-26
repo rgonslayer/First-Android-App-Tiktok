@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                 val apiData: Weather? = response.body()
 
                 // loop to update areaDataList
-                areaDataList = java.util.ArrayList()
+                val areaDataList = ArrayList<AreaData>()
                 val numOfAreas: Int = apiData?.areaMetadata!!.size // number of areas in SG
                 for (i in 0 until numOfAreas) {
                     val currAreaMetadata: AreaMetadata = apiData.areaMetadata[i]
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                         currAreaName, currAreaLat,
                         currAreaLong, currAreaForecast
                     )
-                    areaDataList.add(currAreaData)
+                    areaDataList.add(i, currAreaData)
                 }
 
                 // index of nearest area in List<AreaData>
@@ -199,3 +199,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
