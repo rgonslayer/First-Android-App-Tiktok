@@ -132,12 +132,10 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView16"
+                        android:id="@+id/imageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/humidity"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="0dp" />
+                        app:srcCompat="@drawable/rainfall" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </LinearLayout>
@@ -173,6 +171,14 @@
             android:text="Min Temp"
             tools:layout_editor_absoluteX="54dp"
             tools:layout_editor_absoluteY="386dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="145dp"
+            tools:layout_editor_absoluteY="188dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
