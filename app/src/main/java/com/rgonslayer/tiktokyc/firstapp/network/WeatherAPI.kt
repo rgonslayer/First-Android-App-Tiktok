@@ -1,6 +1,6 @@
 package com.rgonslayer.tiktokyc.firstapp.network
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -12,32 +12,37 @@ import retrofit2.http.GET
  * Note: @field is important!
  */
 data class Weather(
-    @field:Json(name = "area_metadata") val areaMetadata: List<AreaMetadata>,
-    @field:Json(name = "items") val forecastItems: List<ForecastItem>
+    //@field:Json(name = "area_metadata") val areaMetadata: List<AreaMetadata>,
+    //@field:Json(name = "items") val forecastItems: List<ForecastItem>
+    @SerializedName("area_metadata")
+     var areaMetadata: List<AreaMetadata?>? = null,
+
+    @SerializedName("items")
+ val forecastItems: List<ForecastItem>? = null
 )
 
 data class AirTemperature(
-    @field:Json(name = "area_metadata") val tempMetadata: List<TempMetadata>,
-    @field:Json(name = "items") val tempItems: List<TempItem>
+    @field:SerializedName("metadata") val tempMetadata: List<TempMetadata>,
+    @field:SerializedName("items") val tempItems: List<TempItem>
 )
 data class Rainfall(
-    @field:Json(name = "area_metadata") val rainMetadata: List<RainMetadata>,
-    @field:Json(name = "items") val tempItems: List<RainItem>
+    @field:SerializedName("metadata") val rainMetadata: List<RainMetadata>,
+    @field:SerializedName("items") val tempItems: List<RainItem>
 )
 data class RelativeHumidity(
-    @field:Json(name = "area_metadata") val HumidMetadata: List<HumidMetadata>,
-    @field:Json(name = "items") val tempItems: List<HumidItem>
+    @field:SerializedName("metadata") val HumidMetadata: List<HumidMetadata>,
+    @field:SerializedName("items") val tempItems: List<HumidItem>
 )
 data class WindDirection(
-    @field:Json(name = "area_metadata") val WindMetadata: List<WindMetadata>,
-    @field:Json(name = "items") val tempItems: List<WindItem>
+    @field:SerializedName("metadata") val WindMetadata: List<WindMetadata>,
+    @field:SerializedName("items") val tempItems: List<WindItem>
 )
 data class WindSpeed(
-    @field:Json(name = "area_metadata") val SpeedMetadata: List<SpeedMetadata>,
-    @field:Json(name = "items") val tempItems: List<SpeedItem>
+    @field:SerializedName("metadata") val SpeedMetadata: List<SpeedMetadata>,
+    @field:SerializedName("items") val tempItems: List<SpeedItem>
 )
 data class UVIndex(
-    @field:Json(name = "items") val UVItems: List<UVItem>
+    @field:SerializedName("items") val UVItems: List<UVItem>
 )
 
 interface WeatherAPI {
@@ -65,26 +70,37 @@ interface WeatherAPI {
 }
 
 // Nested class AreaMetadata
-class AreaMetadata(val name: String, @field:Json(name = "label_location") val latLong: LatLong) {
+class AreaMetadata(name: String, latLong: LatLong) {
+    val name: String
+
+    @SerializedName("label_location")
+    val latLong: LatLong
 
     // Nested class LatLong
     inner class LatLong(val latitude: Double, val longitude: Double)
+
+    init {
+        this.name = name
+        this.latLong = latLong
+    }
 }
+
 //Nested class ForecastItem
 class ForecastItem(
-    @field:Json(name = "update_timestamp") val updateTimestamp: String, @field:Json(
-        name = "timestamp"
+    @field:SerializedName("update_timestamp") val updateTimestamp: String, @field:SerializedName(
+        "timestamp"
     ) val timestamp: String, val forecasts: List<AreaForecast>
 ) {
+
     // Nested class AreaForecast
     inner class AreaForecast(val name: String, val forecast: String)
 }
 
 //Nested class ForecastItem
 class UVItem(
-    @field:Json(name = "update_timestamp") val updateTimestamp: String, @field:Json(
-        name = "timestamp"
-    ) val timestamp: String, val forecasts: List<Index>
+    @field:SerializedName("update_timestamp") val updateTimestamp: String, @field:SerializedName(
+        "timestamp"
+    ) val timestamp: String, @field:SerializedName("index")val forecasts: List<Index>
 ) {
 
     // Nested class AreaForecast
@@ -92,14 +108,23 @@ class UVItem(
 }
 
 // Nested class AreaMetadata
-class TempMetadata(val name: String, @field:Json(name = "location") val latLong: LatLong) {
+class TempMetadata(stations: tempValues) {
+
+    @field:SerializedName("stations")
+    val stations: tempValues
+
+    inner class tempValues(val id: String, val device_id: String, val name: String, @field:SerializedName("location") val latLong: LatLong) {
 
     // Nested class LatLong
-    inner class LatLong(val latitude: Double, val longitude: Double)
+    inner class LatLong(val latitude: Double, val longitude: Double)}
+
+    init {
+        this.stations = stations
+    }
 }
 //Nested class ForecastItem
-class TempItem(@field:Json(
-        name = "timestamp"
+class TempItem(@field:SerializedName(
+        "timestamp"
     ) val timestamp: String, val forecasts: List<Readings>
 ) {
     // Nested class AreaForecast
@@ -107,14 +132,23 @@ class TempItem(@field:Json(
 }
 
 // Nested class AreaMetadata
-class RainMetadata(val name: String, @field:Json(name = "location") val latLong: LatLong) {
+class RainMetadata(stations: tempValues) {
 
-    // Nested class LatLong
-    inner class LatLong(val latitude: Double, val longitude: Double)
+    @field:SerializedName("stations")
+    val stations: tempValues
+
+    inner class tempValues(val id: String, val device_id: String, val name: String, @field:SerializedName("location") val latLong: LatLong) {
+
+        // Nested class LatLong
+        inner class LatLong(val latitude: Double, val longitude: Double)}
+
+    init {
+        this.stations = stations
+    }
 }
 //Nested class ForecastItem
-class RainItem(@field:Json(
-    name = "timestamp"
+class RainItem(@field:SerializedName(
+    "timestamp"
 ) val timestamp: String, val forecasts: List<Readings>
 ) {
     // Nested class AreaForecast
@@ -122,14 +156,46 @@ class RainItem(@field:Json(
 }
 
 // Nested class AreaMetadata
-class WindMetadata(val name: String, @field:Json(name = "location") val latLong: LatLong) {
+class WindMetadata(stations: tempValues) {
 
-    // Nested class LatLong
-    inner class LatLong(val latitude: Double, val longitude: Double)
+    @field:SerializedName("stations")
+    val stations: tempValues
+
+    inner class tempValues(val id: String, val device_id: String, val name: String, @field:SerializedName("location") val latLong: LatLong) {
+
+        // Nested class LatLong
+        inner class LatLong(val latitude: Double, val longitude: Double)}
+
+    init {
+        this.stations = stations
+    }
 }
 //Nested class ForecastItem
-class WindItem(@field:Json(
-    name = "timestamp"
+class WindItem(@field:SerializedName(
+   "timestamp"
+) val timestamp: String, val forecasts: List<Readings>
+) {
+    // Nested class AreaForecast
+    inner class Readings(val name: String, val temperature: Double)
+}
+
+class HumidMetadata(stations: tempValues) {
+
+    @field:SerializedName("stations")
+    val stations: tempValues
+
+    inner class tempValues(val id: String, val device_id: String, val name: String, @field:SerializedName("location") val latLong: LatLong) {
+
+        // Nested class LatLong
+        inner class LatLong(val latitude: Double, val longitude: Double)}
+
+    init {
+        this.stations = stations
+    }
+}
+//Nested class ForecastItem
+class HumidItem(@field:SerializedName(
+    "timestamp"
 ) val timestamp: String, val forecasts: List<Readings>
 ) {
     // Nested class AreaForecast
@@ -137,29 +203,23 @@ class WindItem(@field:Json(
 }
 
 // Nested class AreaMetadata
-class HumidMetadata(val name: String, @field:Json(name = "location") val latLong: LatLong) {
+class SpeedMetadata(stations: tempValues) {
 
-    // Nested class LatLong
-    inner class LatLong(val latitude: Double, val longitude: Double)
+    @field:SerializedName("stations")
+    val stations: tempValues
+
+    inner class tempValues(val id: String, val device_id: String, val name: String, @field:SerializedName("location") val latLong: LatLong) {
+
+        // Nested class LatLong
+        inner class LatLong(val latitude: Double, val longitude: Double)}
+
+    init {
+        this.stations = stations
+    }
 }
 //Nested class ForecastItem
-class HumidItem(@field:Json(
-    name = "timestamp"
-) val timestamp: String, val forecasts: List<Readings>
-) {
-    // Nested class AreaForecast
-    inner class Readings(val name: String, val temperature: Double)
-}
-
-// Nested class AreaMetadata
-class SpeedMetadata(val name: String, @field:Json(name = "location") val latLong: LatLong) {
-
-    // Nested class LatLong
-    inner class LatLong(val latitude: Double, val longitude: Double)
-}
-//Nested class ForecastItem
-class SpeedItem(@field:Json(
-    name = "timestamp"
+class SpeedItem(@field:SerializedName(
+   "timestamp"
 ) val timestamp: String, val forecasts: List<Readings>
 ) {
     // Nested class AreaForecast
