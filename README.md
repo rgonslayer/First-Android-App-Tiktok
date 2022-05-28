@@ -83,7 +83,6 @@
 
 ![Screenshot 2022-05-29 at 01 58 54](https://user-images.githubusercontent.com/56499861/170837475-64335d45-8164-41ea-9e45-5458e77549f0.png)
 
-[![Screenshot 2022-05-29 at 01 54 27](https://user-images.githubusercontent.com/56499861/170837316-58ee049c-2e53-4716-bbd2-c9e572c1a7d9.png)]]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
