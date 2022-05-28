@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         //sync6()
     }
 
-    private fun getLocation() {
+    fun getLocation() {
         // when permission denied
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Weather?>?, t: Throwable) {
                 // get error message if there is error
-                textView!!.text = t.message
+
             }
         })
 
@@ -266,7 +266,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<AirTemperature?>, t: Throwable) {
                 // get error message if there is error
-                textView!!.text = t.message
+
             }
         })
     }
@@ -341,7 +341,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Rainfall?>, t: Throwable) {
                 // get error message if there is error
-                textView!!.text = t.message
+
             }
         })
     }
@@ -416,7 +416,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<RelativeHumidity?>, t: Throwable) {
                 // get error message if there is error
-                textView!!.text = t.message
+
             }
         })
     }
@@ -491,7 +491,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<WindSpeed?>, t: Throwable) {
                 // get error message if there is error
-                textView!!.text = t.message
+
             }
         })
     }
@@ -566,7 +566,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<WindDirection?>, t: Throwable) {
                 // get error message if there is error
-                textView!!.text = t.message
+
             }
         })
     }
